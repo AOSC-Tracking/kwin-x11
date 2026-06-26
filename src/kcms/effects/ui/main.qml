@@ -13,24 +13,12 @@ import QtQuick.Layouts
 import org.kde.kcmutils
 import org.kde.config
 import org.kde.kirigami 2 as Kirigami
-import org.kde.newstuff as NewStuff
 
 import org.kde.private.kcms.kwin.effects as Private
 
 ScrollViewKCM {
     implicitHeight: Kirigami.Units.gridUnit * 30
     implicitWidth: Kirigami.Units.gridUnit * 40
-
-    actions: NewStuff.Action {
-        text: i18nc("@action:button get new KWin effects", "Get New…")
-        visible: KAuthorized.authorize(KAuthorized.GHNS)
-        configFile: "kwineffect-x11.knsrc"
-        onEntryEvent: (entry, event) => {
-            if (event === NewStuff.Engine.StatusChangedEvent) {
-                kcm.onGHNSEntriesChanged()
-            }
-        }
-    }
 
     header: RowLayout {
         spacing: Kirigami.Units.smallSpacing

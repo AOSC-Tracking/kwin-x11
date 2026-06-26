@@ -30,7 +30,6 @@
 
 // KDE
 #include <KLocalizedString>
-#include <KNSWidgets/Button>
 #include <KPluginFactory>
 #include <KSeparator>
 #include <KTitleWidget>
@@ -74,21 +73,6 @@ KWinTabBoxConfig::KWinTabBoxConfig(QObject *parent, const KPluginMetaData &data)
     tabWidget->addTab(m_primaryTabBoxUi, i18n("Main"));
     tabWidget->addTab(m_alternativeTabBoxUi, i18n("Alternative"));
 
-    KNSWidgets::Button *ghnsButton = new KNSWidgets::Button(i18n("Get New Task Switcher Styles…"), QStringLiteral("kwinswitcher-x11.knsrc"), widget());
-    connect(ghnsButton, &KNSWidgets::Button::dialogFinished, this, [this](auto changedEntries) {
-        if (!changedEntries.isEmpty()) {
-            initLayoutLists();
-        }
-    });
-
-    QHBoxLayout *buttonBar = new QHBoxLayout();
-    QStyle *style = widget()->style();
-
-    buttonBar->setContentsMargins(style->pixelMetric(QStyle::PM_LayoutLeftMargin), 0, style->pixelMetric(QStyle::PM_LayoutRightMargin), style->pixelMetric(QStyle::PM_LayoutBottomMargin));
-    QSpacerItem *buttonBarSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    buttonBar->addItem(buttonBarSpacer);
-    buttonBar->addWidget(ghnsButton);
-
     QVBoxLayout *layout = new QVBoxLayout(widget());
     layout->setContentsMargins(0, 0, 0, 0);
     KTitleWidget *infoLabel = new KTitleWidget(tabWidget);
@@ -99,7 +83,6 @@ KWinTabBoxConfig::KWinTabBoxConfig(QObject *parent, const KPluginMetaData &data)
     layout->addWidget(tabWidget, 1);
     KSeparator *separator = new KSeparator();
     layout->addWidget(separator);
-    layout->addLayout(buttonBar);
     widget()->setLayout(layout);
 
     addConfig(m_data->tabBoxConfig(), m_primaryTabBoxUi);

@@ -11,7 +11,6 @@ import QtQuick.Controls as QQC2
 
 import org.kde.kcmutils as KCM
 import org.kde.kirigami 2.20 as Kirigami
-import org.kde.newstuff as NewStuff
 
 KCM.AbstractKCM {
     id: root
@@ -48,18 +47,6 @@ KCM.AbstractKCM {
             text: i18nc("button text", "Configure Titlebar Buttons…")
 
             onTriggered: kcm.push("ConfigureTitlebar.qml")
-        },
-        NewStuff.Action {
-            configFile: "window-decorations-x11.knsrc"
-            text: i18nc("@action:button as in, \"Get New Window Decorations\"", "Get New…")
-
-            onEntryEvent: (entry, event) => {
-                if (event === NewStuff.Engine.StatusChangedEvent) {
-                    kcm.reloadKWinSettings();
-                } else if (event === NewStuff.Engine.EntryAdoptedEvent) {
-                    kcm.load();
-                }
-            }
         }
     ]
 

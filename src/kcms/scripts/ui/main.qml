@@ -10,7 +10,6 @@ import QtQuick.Layouts
 
 import org.kde.config
 import org.kde.kirigami 2 as Kirigami
-import org.kde.newstuff as NewStuff
 import org.kde.kcmutils as KCMUtils
 
 KCMUtils.ScrollViewKCM {
@@ -22,16 +21,6 @@ KCMUtils.ScrollViewKCM {
             icon.name: "document-import"
             text: i18n("Install from File…")
             onTriggered: kcm.importScript()
-        },
-        NewStuff.Action {
-            text: i18nc("@action:button get new KWin scripts", "Get New…")
-            visible: KAuthorized.authorize(KAuthorized.GHNS)
-            configFile: "kwinscripts-x11.knsrc"
-            onEntryEvent: (entry, event) => {
-                if (event === NewStuff.Engine.StatusChangedEvent) {
-                    kcm.onGHNSEntriesChanged()
-                }
-            }
         }
     ]
 
